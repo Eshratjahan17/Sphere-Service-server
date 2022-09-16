@@ -25,6 +25,7 @@ async function run(){
       .db("sphere-service")
       .collection("products");
     const usersCollection = client.db("sphere-service").collection("users");
+    const reviewCollection = client.db("sphere-service").collection("reviews");
     //product collction
     app.get("/products", async (req, res) => {
       const cursor = productsCollection.find();
@@ -68,7 +69,19 @@ async function run(){
       const result = await productsCollection.insertOne(data);
       res.send(result);
     });
-    
+    //post review
+    //Post a review
+    app.post("/addreview", async (req, res) => {
+      const data = req.body;
+      const result = await reviewCollection.insertOne(data);
+      res.send(result);
+    });
+    //get review
+    app.get("/reviews", async (req, res) => {
+      const cursor = reviewCollection.find();
+      const result = await cursor.toArray();
+      res.send(result);
+    });
   }
   finally{
 
