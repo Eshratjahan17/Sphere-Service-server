@@ -89,6 +89,12 @@ async function run(){
       const result = await productsCollection.deleteOne(filter);
       res.send(result);
     });
+    //get user
+    app.get("/user", async (req, res) => {
+      const cursor = usersCollection.find();
+      const result = await cursor.toArray();
+      res.send(result);
+    });
   }
   finally{
 
